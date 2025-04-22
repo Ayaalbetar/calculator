@@ -1,17 +1,25 @@
 const display = document.getElementById('display');
+const buttons = document.querySelectorAll('.buttons button');
 
-function append(value) {
-  display.value += value;
-}
+buttons.forEach(button => {
+  const value = button.getAttribute('data-value');
 
-function calculate() {
+  if (value) {
+    button.addEventListener('click', () => {
+      if (display.value === 'Error') display.value = '';
+      display.value += value;
+    })
+  }
+})
+
+document.querySelector('.equal').addEventListener('click', () => {
   try {
     display.value = eval(display.value);
-  } catch (e) {
+  } catch {
     display.value = 'Error';
   }
-}
+})
 
-function clearDisplay() {
+document.querySelector('.clear').addEventListener('click', () => {
   display.value = '';
-}
+})
